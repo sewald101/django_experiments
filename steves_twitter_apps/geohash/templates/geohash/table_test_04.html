@@ -1,6 +1,7 @@
+
 <body>
 {% if d %}
-<table border="1" class="dataframe">
+<table style="background-color:#c7e1f0; width:350px; margin-top:35px; margin-left:100px" border="1" class="dataframe">
   <thead>
     <tr style="text-align: center;">
       <th>Rank</th>
@@ -13,7 +14,7 @@
   <tr>
     <td>{{ k }}</td>
     <td>{{ v.HashTag }}</td>
-    <td>{{ v.TweetVol }}</td>
+    <td style="text-align:right">{{ v.TweetVol }}</td>
   </tr>
   {% endfor %}
   </tbody>

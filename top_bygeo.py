@@ -47,6 +47,7 @@ def trending_by_geo(name, country="United States"):
         results = pd.DataFrame(data=filtered, columns=["HashTag", "TweetVol"])
         results = results.sort_values("TweetVol", ascending=False)
         results.index = range(1, len(results)+1)
+        results['TweetVol'] = results.TweetVol.apply(lambda x : "{:,}".format(x))
         print("Top Trending HashTags in {}".format(name.title()))
         return results
 
