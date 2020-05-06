@@ -1,0 +1,22 @@
+<body>
+{% if d %}
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Rank</th>
+      <th>HashTag</th>
+      <th>TweetVol</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for k, v in d.items %}
+  <tr>
+    <td>{{ k }}</td>
+    <td>{{ v.HashTag }}</td>
+    <td>{{ v.TweetVol }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+</body>
