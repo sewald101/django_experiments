@@ -18,8 +18,8 @@ access_secret = twit_auth['ACCESS_SECRET']
 
 api = twitter.Api(consumer_key, consumer_secret, access_token, access_secret)
 
-f = "./woeids.json"
-woeids = pd.read_json(f)
+# f = "./woeids.json"
+# woeids = pd.read_json(f)
 
 def lookup(name, country='United States'):
     """Return WOEID for city/country name and country.
@@ -27,14 +27,17 @@ def lookup(name, country='United States'):
     name = name.title()
     country = country.title()
     try:
-        return woeids.loc[(woeids['country'] == country) & (woeids['name'] == name), 'woeid'].iloc[0]
+        return woeids.loc[(woeids['country'] == country) &
+                          (woeids['name'] == name), 'woeid'
+                         ].iloc[0]
     except IndexError: print("Not a valid country/name combo.")
 
 
-def trending_by_geo(name, country="United States"):
+def trending_by_geo(name, country="United States", woeid=None, json=True):
     """Return top trending hashtags by city/country name and country.
     """
-    woeid = lookup(name, country)
+    if woeid is None:
+        woeid = lookup(name, country)
     try:
         raw = [(x.name, x.volume) for x in api.GetTrendsWoeid(woeid)]
     except:
@@ -48,8 +51,11 @@ def trending_by_geo(name, country="United States"):
         results = results.sort_values("TweetVol", ascending=False)
         results.index = range(1, len(results)+1)
         results['TweetVol'] = results.TweetVol.apply(lambda x : "{:,}".format(x))
-        # print("Top Trending HashTags in {}".format(name.title()))
-        return results
+        if json:
+            return results.to_dict(orient='index')
+        else:
+            print("Top Trending HashTags in {}".format(name.title()))
+            return results
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
