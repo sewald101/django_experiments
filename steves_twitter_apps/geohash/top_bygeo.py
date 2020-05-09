@@ -33,7 +33,7 @@ def lookup(name, country='United States'):
     except IndexError: print("Not a valid country/name combo.")
 
 
-def trending_by_geo(name, country="United States", woeid=None, json=True):
+def trending_by_geo(name=None, country=None, woeid=None, json=True):
     """Return top trending hashtags by city/country name and country.
     """
     if woeid is None:

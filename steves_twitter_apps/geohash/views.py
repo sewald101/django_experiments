@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import os
 
-from .models import Question
+from .models import Question, Woeids
 
 from .top_bygeo import trending_by_geo
 
@@ -21,8 +21,22 @@ from .top_bygeo import trending_by_geo
 def index(request):
     return HttpResponse("This is Steve's experimental web site.")
 
-def tophash(request, woeid):
-    top_hashes = trending_by_geo('seattle', woeid=woeid)
+def tophash(request, country='', city=''):
+    country = country.title()
+    city = city.title()
+    if not city: # For worldwide and country woieds where city/name is NULL
+        querySet = (
+        Woeids.objects.filter(country = country).values('woeid')
+        )
+        print('\n###### LOG 1, QuerySET: {} #########'.format(querySet))
+    else: # City woeids
+        querySet = (
+        Woeids.objects.filter(country = country).filter(name = city).values('woeid')
+        )
+        print('\n###### LOG 3, QuerySET: {} #########'.format(querySet))
+    woeid = querySet[0]['woeid']
+    print('\n###### LOG 4, WOEID: {} #########'.format(woeid))
+    top_hashes = trending_by_geo(woeid=woeid)
     return render(request, "geohash/result.html", {'d': top_hashes})
 
 def detail(request, question_id):
