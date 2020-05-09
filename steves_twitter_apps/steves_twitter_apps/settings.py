@@ -25,6 +25,9 @@ SECRET_KEY = '3xg_w_1fe$qcz78r!@)z_&$is8im7u(bkl+qb!zqn4gkuty+=%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Trying to get Jupyter Notebook to import django
+DJANGO_ALLOW_ASYNC_UNSAFE = True
+
 ALLOWED_HOSTS = [
     'Localhost',
     '127.0.0.1',
@@ -40,6 +43,8 @@ INSTALLED_APPS = [
 
     # Third-party apps
     'bootstrap3',
+    'django_extensions',
+    'django_truncate',
 
     # Default apps
     'django.contrib.admin',

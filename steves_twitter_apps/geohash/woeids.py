@@ -1,4 +1,4 @@
-[{
+data = [{
   "name": "Worldwide",
   "placeType": {
     "code": 19,
