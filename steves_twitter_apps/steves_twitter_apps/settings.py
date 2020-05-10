@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     # My apps
     'geohash.apps.GeohashConfig',
-
+    'polls.apps.PollsConfig',
     # Third-party apps
     'bootstrap3',
     'django_extensions',

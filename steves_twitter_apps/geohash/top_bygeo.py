@@ -60,7 +60,8 @@ def trending_by_geo(name=None, country=None, woeid=None, json=True):
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("name", help="Name of city or country")
-    parser.add_argument("country", nargs="?", default="United States", help="Country name (default: United States)")
+    parser.add_argument("country", nargs="?", default="United States",
+                         help="Country name (default: United States)")
     args = parser.parse_args()
 
     print(trending_by_geo(args.name, args.country))

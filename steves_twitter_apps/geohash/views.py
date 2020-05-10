@@ -1,15 +1,16 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404, JsonResponse
+from django.http import HttpResponse, Http404, JsonResponse, HttpResponseRedirect
 from django.template import loader
 from django.template.loader import render_to_string
 from django.shortcuts import render
+from django.urls import reverse
 
 import json
 import numpy as np
 import pandas as pd
 import os
 
-from .models import Question, Woeids
+from .models import Woeids
 
 from .top_bygeo import trending_by_geo
 
@@ -19,7 +20,8 @@ from .top_bygeo import trending_by_geo
 
 # Create your views here.
 def index(request):
-    return HttpResponse("This is Steve's experimental web site.")
+    return HttpResponse("Welcome to geohash! Enter country and (optionally) city"
+                        " to find top Twitter hashtags.")
 
 def tophash(request, name='', country=''):
     country = country.title()
@@ -36,17 +38,3 @@ def tophash(request, name='', country=''):
     top_hashes = trending_by_geo(woeid=woeid)
     return render(request, "geohash/result.html", {'d': top_hashes})
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "geohash/detail.html", {'question': question})
-
-def results(request, question_id):
-    response = "You're looking at the results of question %s."
-    return HttpResponse(response % question_id)
-
-def vote(request, question_id):
-    return HttpResponse("You're voting on question %s." % question_id)
-
-# def tophashes(request, name):
-#     results = trending_by_geo(name).to_html()
-#     return HttpResponse(results)
