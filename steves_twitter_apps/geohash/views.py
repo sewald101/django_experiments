@@ -21,21 +21,18 @@ from .top_bygeo import trending_by_geo
 def index(request):
     return HttpResponse("This is Steve's experimental web site.")
 
-def tophash(request, country='', city=''):
+def tophash(request, name='', country=''):
     country = country.title()
-    city = city.title()
-    if not city: # For worldwide and country woieds where city/name is NULL
+    name = name.title()
+    if not country: # For worldwide
         querySet = (
-        Woeids.objects.filter(country = country).values('woeid')
+        Woeids.objects.filter(name = name).values('woeid')
         )
-        print('\n###### LOG 1, QuerySET: {} #########'.format(querySet))
-    else: # City woeids
+    else: # For country, city
         querySet = (
-        Woeids.objects.filter(country = country).filter(name = city).values('woeid')
+        Woeids.objects.filter(name = name).filter(country = country).values('woeid')
         )
-        print('\n###### LOG 3, QuerySET: {} #########'.format(querySet))
     woeid = querySet[0]['woeid']
-    print('\n###### LOG 4, WOEID: {} #########'.format(woeid))
     top_hashes = trending_by_geo(woeid=woeid)
     return render(request, "geohash/result.html", {'d': top_hashes})
 
