@@ -3,3 +3,4 @@ twitenv/*
 .DS_store
 **/migrations/*
 *.swp
+*.pyc

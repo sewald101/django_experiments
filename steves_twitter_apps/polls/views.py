@@ -14,8 +14,16 @@ from .models import Question, Choice
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Polls app -- Django official tutorial at:\n"
-  "      https://docs.djangoproject.com/en/3.0/")
+    latest_question_list = Question.objects.order_by('-pub_date')
+    title = ("Polls app -- Django official tutorial at: "
+             "https://docs.djangoproject.com/en/3.0/"
+    )
+    invite = "Take a poll!"
+    context = {'header':title, 
+               'invite':invite,
+               'questions':latest_question_list
+    }
+    return render(request, 'polls/index.html', context)
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
