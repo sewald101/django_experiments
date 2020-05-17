@@ -20,8 +20,10 @@ from .top_bygeo import trending_by_geo
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Welcome to geohash! Enter country and (optionally) city"
-                        " to find top Twitter hashtags.")
+    countries = Woeids.objects.values('country').distinct().order_by('country')
+    ww = trending_by_geo(woeid=1)
+    context = {'countries': countries, 'd': ww}
+    return render(request, 'geohash/index.html', context)
 
 def tophash(request, name='', country=''):
     country = country.title()

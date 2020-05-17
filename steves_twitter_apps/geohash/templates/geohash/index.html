@@ -1,9 +1,36 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
+<h3 style="margin-left:100px">Top Twitter HashTags Trending Now -- WorldWide</h3>
+
+<body>
+{% if countries %}
+<label for="country" style="margin-left:100px">Results by Country</label>
+
+<select id="country">
+  {% for c in countries %}
+  <option value={{ c.country }}>{{ c.country }}</option>
+  {% endfor %}
 {% endif %}
+</select>
+<br>
+
+
+{% if d %}
+<table style="background-color:#c7e1f0; width:350px; margin-top:35px; margin-left:100px" border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: center;">
+      <th>Rank</th>
+      <th>HashTag</th>
+      <th>TweetVol</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for k, v in d.items %}
+  <tr>
+    <td>{{ k }}</td>
+    <td>{{ v.HashTag }}</td>
+    <td style="text-align:right">{{ v.TweetVol }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+</body>
