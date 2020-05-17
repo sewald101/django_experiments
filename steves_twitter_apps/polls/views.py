@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 
 import json
 import numpy as np
@@ -18,11 +19,19 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_question_list'
     
     def get_queryset(self):
-        return Question.objects.all()
+        return (
+Question.objects.filter(pub_date__lte=timezone.now()).order_by('pub_date')
+)
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'    
+
+    def get_queryset(self):
+        """
+        Excludes questions that aren't published yet.
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 class ResultsView(generic.DetailView):
     model = Question
