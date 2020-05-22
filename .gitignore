@@ -4,7 +4,7 @@ twitenv/*
 **/migrations/*
 *.swp
 *.pyc
-AWS Secret.ipynb
+AWS\ Secret.ipynb
 __pycache__/*
 woeid_lookup.ipynb
 load_woeids.ipynb
