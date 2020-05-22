@@ -5,6 +5,8 @@ from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.urls import reverse
 
+from .forms import SelectCountry
+
 import json
 import numpy as np
 import pandas as pd
@@ -22,7 +24,8 @@ from .top_bygeo import trending_by_geo
 def index(request):
     countries = Woeids.objects.values('country').distinct().order_by('country')
     ww = trending_by_geo(woeid=1)
-    context = {'countries': countries, 'd': ww}
+    form = SelectCountry()
+    context = {'countries': countries, 'd': ww, 'form':form}
     return render(request, 'geohash/index.html', context)
 
 def tophash(request, name='', country=''):
@@ -31,6 +34,10 @@ def tophash(request, name='', country=''):
     if not country: # For worldwide
         querySet = (
         Woeids.objects.filter(name = name).values('woeid')
+        )
+    elif not name: # For countries at country grain
+        querySet = (
+        Woeids.objects.filter(name = country).filter(country = country).values('woeid')
         )
     else: # For country, city
         querySet = (

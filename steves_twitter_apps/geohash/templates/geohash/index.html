@@ -1,16 +1,31 @@
 <h3 style="margin-left:100px">Top Twitter HashTags Trending Now -- WorldWide</h3>
 
 <body>
-{% if countries %}
-<label for="country" style="margin-left:100px">Results by Country</label>
 
+<form style="margin-left:100px" action="geohash/country/" method="get">
+  {{ form }}
+  <input type="submit" value="By Country">
+</form>
+
+{% comment %}
+old code
+{% if countries %}
+
+<form action={% url "geohash:tophash_country" country %} method="get"> 
+
+<label for="country" style="margin-left:100px">Results by Country</label>
 <select id="country">
   {% for c in countries %}
-  <option value={{ c.country }}>{{ c.country }}</option>
+  <option value={{ c.country }} name="country">{{ c.country }}</option>
   {% endfor %}
-{% endif %}
 </select>
+
+<input type="submit" value="Submit">
+
+</form>
+{% endif %}
 <br>
+{% endcomment %}
 
 
 {% if d %}
