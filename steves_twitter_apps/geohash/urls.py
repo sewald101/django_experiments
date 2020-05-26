@@ -6,7 +6,8 @@ app_name = 'geohash'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<name>/', views.tophash, name='tophash_name'),
-    path('<country>/<name>/', views.tophash, name='tophash'),
-    path('<country>/', views.tophash, name='tophash_country'),
+    path('CountrySelect/', views.tophash_02, name='hackin'),
+    path('m/<name>/', views.tophash, name='tophash_name'),
+    path('m/<country>/<name>/', views.tophash, name='tophash'),
+    path('m/<country>/', views.tophash, name='tophash_country'),
 ]
