@@ -1,12 +1,15 @@
 
 
-{% if country %}
+{% if name and country %}
+<h3 style="margin-left:100px">Top Twitter HashTags Trending Now -- {{ name }}, {{ country }}</h3>
+{% elif name and not country %}
+<h3 style="margin-left:100px">Top Twitter HashTags Trending Now -- {{ name }}</h3>
+{% elif country and not name %}
 <h3 style="margin-left:100px">Top Twitter HashTags Trending Now -- {{ country }}</h3>
 {% endif %}
 
 <br>
 <a style="margin-left:100px" href="{% url 'geohash:index' %}">Return to Homepage</a>
-<br>
 
 <body>
 {% if d %}
