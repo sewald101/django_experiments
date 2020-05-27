@@ -15,7 +15,8 @@ def tuplefy_countries():
 
 def tuplefy_names(country='United States'):
     """Query Woeids model for sorted list of 'names', i.e., metro areas, within the 
-    selected country.
+    selected country and reformat into list of tuples for consumption by
+    SelectMetro class.
     """
     NAMES = []
     q_set = Woeids.objects.filter(country=country).values('name').order_by('name')
