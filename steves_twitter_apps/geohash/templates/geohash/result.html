@@ -8,6 +8,13 @@
 <h3 style="margin-left:100px">Top Twitter HashTags Trending Now -- {{ country }}</h3>
 {% endif %}
 
+{% if form %}
+<form style="margin-left:100px" action="{% url 'geohash:ByMetro' %}" method="get">
+  {{ form }}
+  <input type="submit" value="By Metro">
+</form>
+{% endif %}
+
 <br>
 <a style="margin-left:100px" href="{% url 'geohash:index' %}">Return to Homepage</a>
 

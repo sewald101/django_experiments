@@ -4,6 +4,8 @@ from django.template import loader
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.urls import reverse
+from django import forms
+from .models import Woeids
 
 from .forms import SelectCountry
 
@@ -45,7 +47,20 @@ def tophash_by_country(request):
           .format(querySet))
     woeid = querySet[0]['woeid']
     top_hashes = trending_by_geo(woeid=woeid)
-    form = None
+    
+    _NAMES = []
+    q_set = Woeids.objects.filter(country=country).values('name').order_by('name')
+    for d in q_set:
+        for k, v in d.items():
+           _NAMES.append((v,v,))
+    
+    if len(_NAMES) > 1: # Test if metros under countries; _NAMES will always incl
+                        # country name (hence, test > 1)
+        print("LOG 2.5 - Metro Names: {}".format(_NAMES))
+        form = None #placeholder for generic form class.
+    else:
+        form = None
+    
     context = {'country': country, 'form': form, 'd': top_hashes}
     return render(request, "geohash/result.html", context)
 
