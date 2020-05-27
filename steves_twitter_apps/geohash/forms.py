@@ -29,6 +29,10 @@ def tuplefy_names(country='United States'):
 class SelectCountry(forms.Form):
     country = forms.ChoiceField(widget=forms.Select, choices=tuplefy_countries())
 
+"""STUCK! -- How can I pass a metro area 'name' into SelectMetro such that the
+select widget only renders the names of metros returned by tuplefy_names(<metro name>)???
+"""
+
 class SelectMetro(forms.Form):
     def __init__(self, country='United States'):
         self.country = country
