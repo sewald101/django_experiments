@@ -57,7 +57,9 @@ def tophash_by_country(request):
     if len(_NAMES) > 1: # Test if metros under countries; _NAMES will always incl
                         # country name (hence, test > 1)
         print("LOG 2.5 - Metro Names: {}".format(_NAMES))
-        form = None #placeholder for generic form class.
+        class _SelectMetro(forms.Form):
+            metro = forms.ChoiceField(widget=forms.Select, choices=_NAMES)
+        form = _SelectMetro()
     else:
         form = None
     
