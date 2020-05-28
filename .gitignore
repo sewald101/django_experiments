@@ -1,8 +1,8 @@
 db.sqlite3
 twitenv/*
-.DS_store
-**/migrations/*
-*.swp
-*.pyc
-./__pycache__/*
-*.ipynb
+**/.DS_store/
+**/migrations/
+**/*.swp
+**/*.pyc
+**/__pycache__/
+**/*.ipynb
